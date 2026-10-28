@@ -45,13 +45,6 @@ are never touched or read.
 npm install --save-dev @coool/opencode-plugin-test
 ```
 
-Not on npm yet — until it is, install from a built clone:
-
-```bash
-git clone https://github.com/Hacklone/opencode-plugin-test && cd opencode-plugin-test
-npm install # runs the prepare script, which builds dist/
-```
-
 ## Quick start
 
 ```bash
