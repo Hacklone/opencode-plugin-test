@@ -1,0 +1,12 @@
+{
+  "name": "opt-fixture-failed-runtime-dep",
+  "version": "1.0.0",
+  "description": "Fixture declaring an unresolvable runtime dependency.",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "dependencies": {
+    "totally-nonexistent-pkg-abc123xyz": "^1.0.0"
+  }
+}

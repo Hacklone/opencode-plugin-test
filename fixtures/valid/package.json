@@ -1,0 +1,9 @@
+{
+  "name": "opt-fixture-valid",
+  "version": "1.0.0",
+  "description": "Valid OpenCode v2 plugin fixture: declares an id and starts cleanly.",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  }
+}

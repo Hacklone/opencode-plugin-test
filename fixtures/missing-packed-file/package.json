@@ -1,0 +1,12 @@
+{
+  "name": "opt-fixture-missing-file",
+  "version": "1.0.0",
+  "description": "Fixture whose files field excludes its export target from the tarball.",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "files": [
+    "package.json"
+  ]
+}

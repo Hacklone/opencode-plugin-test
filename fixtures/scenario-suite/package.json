@@ -1,0 +1,9 @@
+{
+  "name": "opt-fixture-suite",
+  "version": "1.0.0",
+  "description": "Fixture plugin with a scenario suite for end-to-end runs.",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "opt-fixture-invalid-export",
+  "version": "1.0.0",
+  "description": "Fixture whose server export throws at import time.",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  }
+}

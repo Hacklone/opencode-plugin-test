@@ -1,0 +1,7 @@
+{
+  "targets": ["current"],
+  "mode": "packed",
+  "surfaces": ["server"],
+  "scenarios": "./plugin-test.scenarios.ts",
+  "reporter": "json"
+}

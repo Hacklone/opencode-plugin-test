@@ -1,0 +1,9 @@
+{
+  "name": "opt-fixture-startup-throw",
+  "version": "1.0.0",
+  "description": "Fixture whose setup() throws.",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  }
+}

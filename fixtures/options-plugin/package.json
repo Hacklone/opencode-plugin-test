@@ -1,0 +1,9 @@
+{
+  "name": "opt-fixture-options",
+  "version": "1.0.0",
+  "description": "Fixture echoing the options it receives from host config.",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  }
+}

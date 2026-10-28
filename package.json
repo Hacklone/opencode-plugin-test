@@ -1,0 +1,42 @@
+{
+  "name": "opencode-plugin-test",
+  "version": "0.1.0",
+  "description": "Standalone dev tool and test library that verifies OpenCode v2 plugins against their real packed npm artifact and real OpenCode releases in fully isolated sandboxes.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "bin": {
+    "opencode-plugin-test": "dist/cli/bin.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "smoke": "node dist/cli/bin.js fixtures/valid --reporter pretty"
+  },
+  "dependencies": {
+    "tar": "^7.4.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.0.0",
+    "@types/node": "^26.0.0",
+    "@vitest/coverage-v8": "^4.0.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.0"
+  }
+}
