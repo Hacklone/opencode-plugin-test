@@ -51,6 +51,9 @@ opencode-plugin-test
 Exit codes: `0` pass, `1` a check or scenario failed, `2` invalid invocation /
 config / environment error.
 
+The scenario file imports `opencode-plugin-test`, so the tool must be
+installed in the plugin repo (`npm install --save-dev opencode-plugin-test`).
+
 ### Scenarios
 
 Scenarios are author-written behavioral tests that run against a live host
