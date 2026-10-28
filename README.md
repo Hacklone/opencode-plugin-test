@@ -1,40 +1,43 @@
 # opencode-plugin-test
 
-A standalone dev tool and test library that verifies **OpenCode v2 plugins**
-against their **real packed npm artifact** and **real OpenCode releases** in
-fully isolated sandboxes.
+A test tool for OpenCode v2 plugins. It packs your plugin with `npm pack`,
+loads that packed artifact in a real OpenCode host running in a throwaway
+sandbox, and tells you whether the plugin actually registers and works —
+before your users find out it doesn't.
 
-```
-npm install --save-dev opencode-plugin-test
-opencode-plugin-test
-```
+It works as a CLI (`opencode-plugin-test`) and as a library
+(`runPluginTests()`), so you can run it in CI or wire it into your own
+tooling.
 
 ## Why
 
-OpenCode v2 loads plugins from npm packages with an `exports` map. Plenty of
-things can go wrong between "works in my editor" and "works on a user's
-machine": files missing from the tarball, exports pointing at nothing,
-`setup()` throwing, options not arriving, TUI/RPC surfaces not registering.
+OpenCode v2 loads plugins from npm packages with an `exports` map. Several
+things break between "works in my editor" and "works on a user's machine":
+files missing from the tarball, exports pointing at nothing, `setup()`
+throwing, TUI/RPC surfaces not registering. Unit tests never see these
+problems because they run against your source, not the packed artifact a
+user's OpenCode actually loads.
 
-This tool catches those problems by doing what a user's machine does:
+This tool runs the same path a user's machine runs:
 
-1. **Discovers** your Plugin Package (directory with a `package.json`).
-2. **Packs** it with `npm pack` — the exact bytes npm ships.
-3. **Inspects** the tarball: every export target must be present in the
-   packed artifact (catches overzealous `files` fields).
-4. **Materializes** the artifact (extract + `npm install` of declared runtime
-   dependencies) and registers it in a **Sandbox** — a throwaway project with
-   its own `opencode.json`, isolated from your real global config by a fully
-   sanitized environment.
-5. **Boots a real OpenCode host** (`opencode serve`) in the sandbox with a
-   generated password and waits for **Readiness** (the plugin list becoming
+1. Finds your plugin package (a directory with a `package.json`).
+2. Packs it with `npm pack` — the same bytes npm ships.
+3. Inspects the tarball: every export target must be present (catches
+   overzealous `files` fields).
+4. Extracts the tarball, installs its declared runtime dependencies, and
+   registers it in a sandbox — a throwaway project with its own
+   `opencode.json`.
+5. Boots a real OpenCode host (`opencode serve`) inside the sandbox with a
+   generated password and waits for readiness (the plugin list becoming
    non-empty — OpenCode v2 has no JSON health endpoint).
-6. **Verifies** your plugin registers on the host with `state: active` and
-   exposes the declared **Feature Surfaces** (`server`, `tui`, `rpc`).
-7. **Runs your Scenarios** against the live host, then tears everything down.
+6. Checks that your plugin registers with `state: active` and exposes the
+   feature surfaces you declared (`server`, `tui`, `rpc`).
+7. Runs your scenarios against the live host, then tears everything down.
 
-Nothing outside the sandbox is ever touched or observed: your global
-`~/.config/opencode`, plugins, database, and caches are invisible to the host.
+The sandbox is isolated by construction: the host process runs with a
+from-scratch environment (fresh `HOME` and XDG directories, no inherited
+variables). Your global `~/.config/opencode`, plugins, database, and caches
+are never touched or read.
 
 ## Quick start
 
@@ -93,10 +96,15 @@ options from the config).
   "scenarioTimeoutMs": 30000,
   "reporter": "pretty", // pretty | json | junit
   "keepSandbox": false, // keep sandbox dirs for debugging
-  "options": {}, // options delivered to scenario context (ADR 0003)
+  "options": {}, // delivered to the scenario context, not to the plugin (ADR 0003)
   "expectedPluginId": null // match plugin by id instead of path
 }
 ```
+
+Note on `options`: OpenCode v2 cannot load local artifacts through its
+`{package, options}` config form, so options configured here reach your
+scenario context (`ctx.options`) — not the plugin's `setup()`. See
+[ADR 0003](docs/adr/0003-options-reach-scenarios-not-the-plugin-host-entry.md).
 
 CLI flags override the file: `--target` (repeatable), `--source`,
 `--scenario` (repeatable), `--reporter`, `--output`, `--boot-timeout-ms`,
@@ -124,7 +132,7 @@ if (run.status === "fail") process.exit(1);
 
 ### Diagnostics
 
-Every problem is a structured `Diagnostic` with a stable code:
+Every failure is a structured `Diagnostic` with a stable code:
 
 | Family    | Meaning                                                                                                   |
 | --------- | --------------------------------------------------------------------------------------------------------- |
@@ -145,15 +153,6 @@ The full catalog with descriptions lives in
 - `json`: the complete `RunResult` — machine readable.
 - `junit`: JUnit XML for CI.
 
-## Test pyramid
-
-- **Unit**: every module tested exhaustively (100% line/branch/function/statement
-  coverage enforced) with injected fakes for processes, npm, and HTTP.
-- **Integration**: real `opencode serve` boots against real fixture plugins —
-  happy path, missing packed files, invalid exports, startup throws, failed
-  runtime deps, options delivery, scenario suites — verifying exit codes and
-  diagnostics end to end.
-
 ## Design decisions
 
 - [ADR 0001](docs/adr/0001-register-materialized-artifacts-by-local-path.md):
@@ -161,6 +160,10 @@ The full catalog with descriptions lives in
 - [ADR 0002](docs/adr/0002-sanitized-environment-sandbox-isolation.md):
   sandboxes use a from-scratch sanitized environment; readiness comes from
   polling `GET /api/plugin`.
+- [ADR 0003](docs/adr/0003-options-reach-scenarios-not-the-plugin-host-entry.md):
+  configured options reach the scenario context, not the plugin host entry —
+  the host cannot resolve local paths in its `{package, options}` config form.
 
 See [GLOSSARY.md](GLOSSARY.md) for canonical vocabulary and
-[CONTRIBUTING.md](CONTRIBUTING.md) for development workflows.
+[CONTRIBUTING.md](CONTRIBUTING.md) for development workflows (including how
+this tool's own tests are organized).

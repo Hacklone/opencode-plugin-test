@@ -18,6 +18,16 @@ npm run build       # tsc build to dist/
 npm run smoke       # real opencode run against fixtures/valid
 ```
 
+## Test structure
+
+- **Unit**: every module tested with injected fakes for processes, npm, and
+  HTTP. Coverage thresholds (100% across the board) are enforced in
+  `vitest.config.ts`.
+- **Integration** (`tests/integration.test.ts`): real `opencode serve` boots
+  against real fixture plugins — happy path, missing packed files, invalid
+  exports, startup throws, failed runtime deps, options delivery, scenario
+  suites — verifying exit codes and diagnostics end to end.
+
 ## Layout
 
 ```
