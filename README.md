@@ -39,13 +39,26 @@ from-scratch environment (fresh `HOME` and XDG directories, no inherited
 variables). Your global `~/.config/opencode`, plugins, database, and caches
 are never touched or read.
 
+## Install
+
+```bash
+npm install --save-dev opencode-plugin-test
+```
+
+Not on npm yet — until it is, install from a built clone:
+
+```bash
+git clone https://github.com/Hacklone/opencode-plugin-test && cd opencode-plugin-test
+npm install # runs the prepare script, which builds dist/
+```
+
 ## Quick start
 
 ```bash
 # in your plugin repo
-opencode-plugin-test --init
+npx opencode-plugin-test --init
 # edit plugin-test.scenarios.ts, then:
-opencode-plugin-test
+npx opencode-plugin-test
 ```
 
 Exit codes: `0` pass, `1` a check or scenario failed, `2` invalid invocation /
