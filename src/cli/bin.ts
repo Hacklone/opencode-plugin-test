@@ -9,7 +9,7 @@ import { type ReporterName, renderReport } from "../reporters/index.js";
 import { type RunEvent, runPluginTests } from "../runner/run.js";
 import { runInit } from "./init.js";
 
-const USAGE = `opencode-plugin-test — test OpenCode v2 plugins against real packed artifacts
+const USAGE = `@coool/opencode-plugin-test — test OpenCode v2 plugins against real packed artifacts
 
 Usage:
   opencode-plugin-test [packageRoot] [options]
@@ -165,7 +165,7 @@ export async function main(
     return EXIT_OK;
   }
   if (parsed.version === true) {
-    console.log(`opencode-plugin-test v${ownVersion()}`);
+    console.log(`@coool/opencode-plugin-test v${ownVersion()}`);
     return EXIT_OK;
   }
   if (cliError) {

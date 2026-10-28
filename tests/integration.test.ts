@@ -100,10 +100,10 @@ describe.sequential("integration (real opencode host)", () => {
     cpSync(fixturePath("options-plugin"), path.join(tmp, "fixture"), { recursive: true });
     // The scenario file self-imports the tool; under real module resolution
     // that needs node_modules (vitest's alias only covers in-root loaders).
-    mkdirSync(path.join(tmp, "fixture", "node_modules"), { recursive: true });
+    mkdirSync(path.join(tmp, "fixture", "node_modules", "@coool"), { recursive: true });
     symlinkSync(
       REPO_ROOT,
-      path.join(tmp, "fixture", "node_modules", "opencode-plugin-test"),
+      path.join(tmp, "fixture", "node_modules", "@coool", "opencode-plugin-test"),
       "dir",
     );
     writeFileSync(
@@ -120,7 +120,7 @@ describe.sequential("integration (real opencode host)", () => {
     writeFileSync(
       path.join(tmp, "fixture", "plugin-test.scenarios.ts"),
       [
-        `import { definePluginTestSuite } from "opencode-plugin-test";`,
+        `import { definePluginTestSuite } from "@coool/opencode-plugin-test";`,
         ``,
         `export default definePluginTestSuite({`,
         `  name: "options-suite",`,

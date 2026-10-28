@@ -98,7 +98,7 @@ function warnRun(): RunResult {
 describe("renderPretty", () => {
   it("renders a passing run header and icons", () => {
     const out = renderPretty(passRun());
-    expect(out).toContain("opencode-plugin-test — PASS");
+    expect(out).toContain("@coool/opencode-plugin-test — PASS");
     expect(out).toContain("package: /repo (mode: packed, 123ms)");
     expect(out).toContain("package checks:");
     expect(out).toContain("✓ manifest valid");
@@ -109,7 +109,7 @@ describe("renderPretty", () => {
 
   it("renders a failing run with diagnostics and hint text", () => {
     const out = renderPretty(failRun());
-    expect(out).toContain("opencode-plugin-test — FAIL");
+    expect(out).toContain("@coool/opencode-plugin-test — FAIL");
     expect(out).toContain("✗ target current (opencode ?)");
     expect(out).toContain("✗ exports server");
     expect(out).toContain("PKG006: no server export in the exports map");
@@ -121,7 +121,7 @@ describe("renderPretty", () => {
 
   it("renders a warn run with the ! icon", () => {
     const out = renderPretty(warnRun());
-    expect(out).toContain("opencode-plugin-test — WARN");
+    expect(out).toContain("@coool/opencode-plugin-test — WARN");
     expect(out).toContain("! version is semver");
     expect(out).toContain("PKG004: version is missing or not a valid semver");
   });
@@ -199,7 +199,7 @@ describe("renderJunit", () => {
     const out = renderJunit(source);
     expect(out.startsWith('<?xml version="1.0" encoding="UTF-8"?>')).toBe(true);
     expect(out).toContain(
-      '<testsuites name="opencode-plugin-test" tests="4" failures="3" status="failed">',
+      '<testsuites name="@coool/opencode-plugin-test" tests="4" failures="3" status="failed">',
     );
     expect(out).toContain('<testsuite name="current" tests="4" failures="3">');
     expect(out).toContain("</testsuites>");
@@ -223,7 +223,7 @@ describe("renderJunit", () => {
       }),
     );
     expect(out).toContain(
-      '<testsuites name="opencode-plugin-test" tests="1" failures="1" status="failed">',
+      '<testsuites name="@coool/opencode-plugin-test" tests="1" failures="1" status="failed">',
     );
     expect(out).toContain('<testsuite name="package" tests="1" failures="1">');
     expect(out).toContain(
@@ -233,7 +233,7 @@ describe("renderJunit", () => {
 
   it("includes the package testsuite and reports zero failures on a pass", () => {
     const out = renderJunit(passRun());
-    expect(out).toContain('<testsuites name="opencode-plugin-test" tests="3" failures="0">');
+    expect(out).toContain('<testsuites name="@coool/opencode-plugin-test" tests="3" failures="0">');
     expect(out).not.toContain('status="failed"');
     expect(out).toContain('<testsuite name="package" tests="1" failures="0">');
     expect(out).toContain('<testcase name="check: manifest valid" classname="package"></testcase>');

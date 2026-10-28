@@ -1,4 +1,4 @@
-# opencode-plugin-test
+# @coool/opencode-plugin-test
 
 A test tool for OpenCode v2 plugins. It packs your plugin with `npm pack`,
 loads that packed artifact in a real OpenCode host running in a throwaway
@@ -42,7 +42,7 @@ are never touched or read.
 ## Install
 
 ```bash
-npm install --save-dev opencode-plugin-test
+npm install --save-dev @coool/opencode-plugin-test
 ```
 
 Not on npm yet — until it is, install from a built clone:
@@ -64,8 +64,8 @@ npx opencode-plugin-test
 Exit codes: `0` pass, `1` a check or scenario failed, `2` invalid invocation /
 config / environment error.
 
-The scenario file imports `opencode-plugin-test`, so the tool must be
-installed in the plugin repo (`npm install --save-dev opencode-plugin-test`).
+The scenario file imports `@coool/opencode-plugin-test`, so the tool must be
+installed in the plugin repo (`npm install --save-dev @coool/opencode-plugin-test`).
 
 ### Scenarios
 
@@ -74,7 +74,7 @@ with your real artifact loaded:
 
 ```ts
 // plugin-test.scenarios.ts
-import { definePluginTestSuite } from "opencode-plugin-test";
+import { definePluginTestSuite } from "@coool/opencode-plugin-test";
 
 export default definePluginTestSuite({
   name: "my-plugin",
@@ -130,7 +130,7 @@ CLI flags override the file: `--target` (repeatable), `--source`,
 ### Library use
 
 ```ts
-import { runPluginTests, definePluginTestSuite } from "opencode-plugin-test";
+import { runPluginTests, definePluginTestSuite } from "@coool/opencode-plugin-test";
 
 const run = await runPluginTests({
   packageRoot: process.cwd(),

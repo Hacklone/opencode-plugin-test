@@ -98,7 +98,7 @@ describe("bin main() — help/version", () => {
     const { logs } = captureConsole();
     const code = await main(["--version"]);
     expect(code).toBe(0);
-    expect(logs[0]).toBe("opencode-plugin-test v0.1.0");
+    expect(logs[0]).toBe("@coool/opencode-plugin-test v0.1.0");
   });
 
   it("falls back to 0.0.0 when the required package.json has no version field", async () => {
@@ -107,7 +107,7 @@ describe("bin main() — help/version", () => {
     try {
       const code = await main(["--version"]);
       expect(code).toBe(0);
-      expect(logs[0]).toBe("opencode-plugin-test v0.0.0");
+      expect(logs[0]).toBe("@coool/opencode-plugin-test v0.0.0");
     } finally {
       pkgMock.fakePackageJson = false;
     }

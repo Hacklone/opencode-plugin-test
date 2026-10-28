@@ -1,6 +1,6 @@
 # Glossary
 
-Canonical vocabulary for `opencode-plugin-test`. Implementation-free by design.
+Canonical vocabulary for `@coool/opencode-plugin-test`. Implementation-free by design.
 
 ## Plugin Package
 

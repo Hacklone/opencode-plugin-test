@@ -4,7 +4,7 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   resolve: {
     alias: {
-      "opencode-plugin-test": path.resolve(import.meta.dirname, "src/index.ts"),
+      "@coool/opencode-plugin-test": path.resolve(import.meta.dirname, "src/index.ts"),
     },
   },
   test: {

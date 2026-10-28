@@ -1,5 +1,8 @@
 {
-  "name": "opencode-plugin-test",
+  "name": "@coool/opencode-plugin-test",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.1.0",
   "description": "Standalone dev tool and test library that verifies OpenCode v2 plugins against their real packed npm artifact and real OpenCode releases in fully isolated sandboxes.",
   "type": "module",

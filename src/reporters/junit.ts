@@ -75,7 +75,7 @@ export function renderJunit(run: RunResult): string {
   const suiteStatus = run.status === "fail";
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    `<testsuites name="opencode-plugin-test" tests="${total}" failures="${failures}"${suiteStatus ? ' status="failed"' : ""}>`,
+    `<testsuites name="@coool/opencode-plugin-test" tests="${total}" failures="${failures}"${suiteStatus ? ' status="failed"' : ""}>`,
     ...suites,
     "</testsuites>",
     "",

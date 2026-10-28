@@ -51,7 +51,7 @@ function renderTarget(target: TargetOutcome, indent: string): string[] {
 
 export function renderPretty(run: RunResult): string {
   const lines: string[] = [];
-  lines.push(`opencode-plugin-test — ${run.status.toUpperCase()}`);
+  lines.push(`@coool/opencode-plugin-test — ${run.status.toUpperCase()}`);
   lines.push(`package: ${run.packageRoot} (mode: ${run.mode}, ${run.durationMs}ms)`);
   if (run.packageChecks.length > 0) {
     lines.push("package checks:");

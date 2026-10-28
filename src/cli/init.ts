@@ -14,7 +14,7 @@ const CONFIG_TEMPLATE = {
   reporter: "pretty",
 };
 
-const SCENARIOS_TEMPLATE = `import { definePluginTestSuite } from "opencode-plugin-test";
+const SCENARIOS_TEMPLATE = `import { definePluginTestSuite } from "@coool/opencode-plugin-test";
 
 export default definePluginTestSuite({
   name: "my-plugin",

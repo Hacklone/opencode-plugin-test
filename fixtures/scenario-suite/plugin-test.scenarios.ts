@@ -1,4 +1,4 @@
-import { definePluginTestSuite } from "opencode-plugin-test";
+import { definePluginTestSuite } from "@coool/opencode-plugin-test";
 
 export default definePluginTestSuite({
   name: "fixture-suite-tests",
